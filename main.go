@@ -41,12 +41,12 @@ func main() {
 
 	fmt.Printf("Path to file that's supposed to have the symbols data: %s", options.Positional.Path)
 
-	ruleStr, err := rules.UpdateVariant(options.XkbSymbol, options.XkbVariant, options.XkbDescription)
+	err := rules.UpdateVariant(options.XkbSymbol, options.XkbVariant, options.XkbDescription)
 	if err != nil {
 		log.Fatalf("Error dealing with rules xml file: %s", err)
 	}
 
-	fmt.Printf("%s", ruleStr)
+
 	if options.XkbComposePath != "" {
 		if _, err := utils.Copy(options.XkbComposePath, "~/.Xcompose"); err != nil {
 			log.Fatalf("Error copying XCompose: %s.", err)

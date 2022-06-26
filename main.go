@@ -41,7 +41,12 @@ func main() {
 
 	fmt.Printf("Path to file that's supposed to have the symbols data: %s", options.Positional.Path)
 
-	err := rules.UpdateVariant(options.XkbSymbol, options.XkbVariant, options.XkbDescription)
+	err := rules.AddLstVariant(options.XkbSymbol, options.XkbVariant, options.XkbDescription)
+	if err != nil {
+		log.Fatalf("Error dealing adding rule to lst file: %s", err)
+	}
+
+	err = rules.UpdateVariant(options.XkbSymbol, options.XkbVariant, options.XkbDescription)
 	if err != nil {
 		log.Fatalf("Error dealing with rules xml file: %s", err)
 	}

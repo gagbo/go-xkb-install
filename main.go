@@ -39,7 +39,7 @@ func main() {
 		}
 	}
 
-	fmt.Printf("Path to file that's supposed to have the symbols data: %s", options.Positional.Path)
+	fmt.Printf("Path to file that's supposed to have the symbols data: %s\n", options.Positional.Path)
 
 	err := rules.AddLstVariant(options.XkbSymbol, options.XkbVariant, options.XkbDescription)
 	if err != nil {

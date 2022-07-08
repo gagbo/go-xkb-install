@@ -6,7 +6,6 @@ import (
 
 	"github.com/jessevdk/go-flags"
 
-	"fmt"
 	"log"
 	"os"
 )
@@ -39,9 +38,14 @@ func main() {
 		}
 	}
 
-	fmt.Printf("Path to file that's supposed to have the symbols data: %s\n", options.Positional.Path)
+	log.Printf("Path to file that's supposed to have the symbols data: %s\n", options.Positional.Path)
+	err := rules.AddLayout(options.XkbSymbol, options.Positional.Path)
+	if err != nil {
+		log.Fatalf("Error dealing adding xkb layout to symbols file: %s", err)
+	}
 
-	err := rules.AddLstVariant(options.XkbSymbol, options.XkbVariant, options.XkbDescription)
+
+	err = rules.AddLstVariant(options.XkbSymbol, options.XkbVariant, options.XkbDescription)
 	if err != nil {
 		log.Fatalf("Error dealing adding rule to lst file: %s", err)
 	}

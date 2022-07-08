@@ -75,6 +75,19 @@ func BackupAndWrite(content, dst string) (int, error) {
 	return f.WriteString(content)
 }
 
+func BackupAndAppend(src, dst string) (int, error) {
+	madeBackup, err := backupFile(dst)
+	if err != nil {
+		return 0, err
+	}
+
+	if madeBackup != "" {
+		log.Printf("Backed up %s at %s", dst, madeBackup)
+	}
+
+	return Append(src, dst)
+}
+
 func backupFile(path string) (string, error) {
 	ts := time.Now().UnixMilli()
 	data, err := os.Stat(path)

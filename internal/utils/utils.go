@@ -99,7 +99,7 @@ func backupFile(path string) (string, error) {
 		log.Printf("Backed up %s at %s", path, backupFileName)
 		backupPath = backupFileName
 	} else {
-		log.Printf("Did not need to backup %s because: %w", path, err)
+		log.Printf("Did not need to backup %s because: %s", path, err)
 	}
 
 	// At this point, it is safe to override the file at path in any case

@@ -1,9 +1,9 @@
 package rules
 
 import (
-	"github.com/gagbo/go-xkb-install/internal/utils"
 	"bufio"
 	"fmt"
+	"github.com/gagbo/go-xkb-install/internal/utils"
 	"io/ioutil"
 	"strings"
 )
@@ -29,13 +29,13 @@ func AddLstVariant(layout, variantName, desc string) error {
 	}
 
 	scanner := bufio.NewScanner(strings.NewReader(contentStr))
-        fileContent := ""
+	fileContent := ""
 	for scanner.Scan() {
 		line := scanner.Text()
 		fileContent += line
 		if line == variantHeader {
 			fmt.Println("Found variant header!")
-		        fileContent += variantLine
+			fileContent += variantLine
 		}
 	}
 

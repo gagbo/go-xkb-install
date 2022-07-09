@@ -44,7 +44,6 @@ func main() {
 		log.Fatalf("Error dealing adding xkb layout to symbols file: %s", err)
 	}
 
-
 	err = rules.AddLstVariant(options.XkbSymbol, options.XkbVariant, options.XkbDescription)
 	if err != nil {
 		log.Fatalf("Error dealing adding rule to lst file: %s", err)
@@ -54,7 +53,6 @@ func main() {
 	if err != nil {
 		log.Fatalf("Error dealing with rules xml file: %s", err)
 	}
-
 
 	if options.XkbComposePath != "" {
 		if _, err := utils.Copy(options.XkbComposePath, "~/.Xcompose"); err != nil {

@@ -57,13 +57,9 @@ func Append(src, dst string) (int, error) {
 }
 
 func BackupAndWrite(content, dst string) (int, error) {
-	madeBackup, err := backupFile(dst)
+	_, err := backupFile(dst)
 	if err != nil {
 		return 0, err
-	}
-
-	if madeBackup != "" {
-		log.Printf("Backed up %s at %s", dst, madeBackup)
 	}
 
 	f, err := os.OpenFile(dst, os.O_WRONLY|os.O_CREATE, 0644)
@@ -76,13 +72,9 @@ func BackupAndWrite(content, dst string) (int, error) {
 }
 
 func BackupAndAppend(src, dst string) (int, error) {
-	madeBackup, err := backupFile(dst)
+	_, err := backupFile(dst)
 	if err != nil {
 		return 0, err
-	}
-
-	if madeBackup != "" {
-		log.Printf("Backed up %s at %s", dst, madeBackup)
 	}
 
 	return Append(src, dst)
@@ -93,7 +85,7 @@ func backupFile(path string) (string, error) {
 	data, err := os.Stat(path)
 	var backupPath string
 
-	if !data.Mode().IsRegular() {
+	if err == nil && !data.Mode().IsRegular() {
 		return "", fmt.Errorf("%s is not a regular file", path)
 	}
 
@@ -104,7 +96,10 @@ func backupFile(path string) (string, error) {
 		if _, err = Copy(path, backupFileName); err != nil {
 			return "", fmt.Errorf("could not backup the file at %s: %s", path, err)
 		}
+		log.Printf("Backed up %s at %s", path, backupFileName)
 		backupPath = backupFileName
+	} else {
+		log.Printf("Did not need to backup %s because: %w", path, err)
 	}
 
 	// At this point, it is safe to override the file at path in any case
